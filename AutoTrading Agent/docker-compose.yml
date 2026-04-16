@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: titan-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: titan_db
+      POSTGRES_USER: titan
+      POSTGRES_PASSWORD: titan_secure_password_change_me
+    ports:
+      - "5432:5432"
+    volumes:
+      - titan-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U titan -d titan_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: titan-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - titan-redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: titan-chromadb
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - titan-chroma:/chroma/chroma
+    environment:
+      ANONYMIZED_TELEMETRY: "false"
+
+volumes:
+  titan-pgdata:
+  titan-redis:
+  titan-chroma:

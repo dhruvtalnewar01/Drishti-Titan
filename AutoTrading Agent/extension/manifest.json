@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "TITAN AI Trading Agent",
+  "version": "1.0.0",
+  "description": "God-level AI auto-trading agent that integrates with Zerodha & Groww",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://kite.zerodha.com/*",
+    "https://groww.in/*",
+    "http://localhost:8080/*",
+    "https://your-titan-backend.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://kite.zerodha.com/*",
+        "https://groww.in/*"
+      ],
+      "js": ["src/content/inject.js"],
+      "css": ["src/content/overlay.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["https://kite.zerodha.com/*", "https://groww.in/*"]
+    }
+  ]
+}

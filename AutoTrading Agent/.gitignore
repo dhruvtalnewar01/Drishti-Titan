@@ -1,0 +1,36 @@
+# === Secrets ===
+.env
+*.pem
+*.key
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# === Node.js ===
+node_modules/
+extension/dist/
+dashboard/dist/
+
+# === IDE ===
+.vscode/
+.idea/
+
+# === Data & Logs ===
+logs/
+*.log
+data/
+*.db
+*.sqlite3
+
+# === Docker ===
+docker-data/
+
+# === OS ===
+.DS_Store
+Thumbs.db

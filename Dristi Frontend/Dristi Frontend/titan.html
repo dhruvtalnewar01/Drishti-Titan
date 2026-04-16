@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TITAN AI Trading Agent — Autonomous Trading Intelligence</title>
+    <meta name="description" content="TITAN — God-level AI auto-trading agent with Zerodha & Groww integration. Powered by Gemini 3.1 Pro.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+        --bg: #050208;
+        --card: #0C0816;
+        --border: #1a1230;
+        --purple: #B142FF;
+        --green: #00E5A0;
+        --red: #ef4444;
+        --blue: #38bdf8;
+        --orange: #fb923c;
+        --text: #E2E8F0;
+        --muted: #64748B;
+        --dim: #3d4f6a;
+        --font-display: 'Outfit', sans-serif;
+        --font-sans: 'Inter', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-sans);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAVBAR ── */
+    .titan-nav {
+        position: fixed; top: 18px; left: 0; right: 0; z-index: 1000;
+        display: flex; justify-content: center; pointer-events: none;
+    }
+    .titan-nav-inner {
+        pointer-events: auto;
+        height: 54px; padding: 0 28px;
+        display: flex; justify-content: space-between; align-items: center;
+        width: 92%; max-width: 1100px;
+        background: rgba(8,5,18,0.6);
+        backdrop-filter: blur(20px) saturate(160%);
+        border: 1px solid rgba(177,66,255,0.08);
+        border-radius: 40px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 60px rgba(177,66,255,0.03);
+    }
+    .titan-logo {
+        display: flex; align-items: center; gap: 10px;
+        font-family: var(--font-display); font-weight: 900; font-size: 1.15rem;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, #C084FC, #00E5A0);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .titan-logo-ver {
+        font-size: 0.6rem; font-weight: 500; color: var(--muted);
+        background: rgba(255,255,255,0.06); padding: 2px 8px; border-radius: 6px;
+        -webkit-text-fill-color: var(--muted); letter-spacing: 0;
+    }
+    .titan-nav-links { display: flex; gap: 24px; }
+    .titan-nav-links a { color: var(--muted); font-size: 0.85rem; font-weight: 500; text-decoration: none; transition: color 0.3s; }
+    .titan-nav-links a:hover { color: #fff; }
+    .btn-back {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: rgba(177,66,255,0.08); border: 1px solid rgba(177,66,255,0.2);
+        color: #C084FC; padding: 8px 20px; border-radius: 20px;
+        font-size: 0.82rem; font-weight: 600; text-decoration: none;
+        transition: all 0.3s;
+    }
+    .btn-back:hover { background: rgba(177,66,255,0.15); border-color: rgba(177,66,255,0.4); }
+
+    /* ── HERO AGENT SHOWCASE ── */
+    .agent-hero {
+        padding: 140px 8vw 80px;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        max-width: 1200px; margin: 0 auto;
+        min-height: 100vh;
+        position: relative;
+    }
+    .agent-hero::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(ellipse at 60% 40%, rgba(177,66,255,0.08) 0%, transparent 50%),
+                    radial-gradient(ellipse at 30% 70%, rgba(0,229,160,0.05) 0%, transparent 50%);
+        pointer-events: none;
+    }
+    .agent-info { position: relative; z-index: 2; }
+    .agent-badge {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2);
+        color: var(--green); padding: 6px 16px; border-radius: 20px;
+        font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em;
+        text-transform: uppercase; margin-bottom: 24px;
+    }
+    .agent-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+    .agent-info h1 {
+        font-family: var(--font-display); font-size: 3.5rem; font-weight: 900;
+        line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.03em;
+    }
+    .agent-info h1 .grad {
+        background: linear-gradient(135deg, #C084FC, #00E5A0);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .agent-info .desc {
+        color: var(--muted); font-size: 1.1rem; line-height: 1.7;
+        margin-bottom: 32px; max-width: 480px;
+    }
+    .agent-stats {
+        display: flex; gap: 24px; margin-bottom: 36px;
+    }
+    .agent-stat {
+        background: rgba(12,8,24,0.6); backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.06); border-radius: 14px;
+        padding: 16px 20px; text-align: center; min-width: 100px;
+    }
+    .agent-stat .val { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 800; }
+    .agent-stat .lbl { font-size: 0.7rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+    .integrations {
+        display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .integ-chip {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 10px; padding: 8px 14px; font-size: 0.78rem; font-weight: 500;
+        color: #CBD5E1;
+    }
+
+    /* ── 3D AGENT MOCKUP ── */
+    .agent-mockup-wrap {
+        position: relative; z-index: 2;
+        perspective: 1200px;
+    }
+    .agent-mockup {
+        background: linear-gradient(135deg, #0c0816 0%, #120e20 100%);
+        border: 1px solid rgba(177,66,255,0.15);
+        border-radius: 24px;
+        padding: 0;
+        box-shadow: 0 40px 100px rgba(177,66,255,0.12), 0 0 1px rgba(255,255,255,0.1),
+                    inset 0 1px 0 rgba(255,255,255,0.04);
+        transform: rotateY(-5deg) rotateX(2deg);
+        transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+        overflow: hidden;
+    }
+    .agent-mockup:hover { transform: rotateY(0deg) rotateX(0deg) scale(1.02); }
+    .mockup-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 20px 24px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mockup-title { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; letter-spacing: 1px; }
+    .mockup-status {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: rgba(0,229,160,0.12); border: 1px solid rgba(0,229,160,0.25);
+        color: var(--green); padding: 4px 14px; border-radius: 20px;
+        font-size: 0.72rem; font-weight: 700;
+    }
+    .mockup-tabs {
+        display: flex; border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding: 0 24px;
+    }
+    .mockup-tab {
+        padding: 12px 16px; font-size: 0.78rem; font-weight: 600;
+        color: var(--dim); border-bottom: 2px solid transparent;
+        cursor: default; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .mockup-tab.active { color: var(--green); border-bottom-color: var(--green); }
+    .mockup-body { padding: 20px 24px 24px; }
+    .mockup-volatility {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: rgba(251,146,60,0.12); border: 1px solid rgba(251,146,60,0.25);
+        color: var(--orange); padding: 6px 14px; border-radius: 10px;
+        font-size: 0.72rem; font-weight: 700; margin-bottom: 16px;
+    }
+    .mockup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .mockup-card {
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px; padding: 16px;
+    }
+    .mockup-card .mc-label { font-size: 0.65rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .mockup-card .mc-value { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 800; }
+    .mockup-card .mc-value.green { color: var(--green); }
+    .mockup-stats-row {
+        display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px; overflow: hidden; margin-bottom: 20px;
+    }
+    .ms-cell { padding: 14px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
+    .ms-cell:last-child { border-right: none; }
+    .ms-cell .ms-num { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 800; }
+    .ms-cell .ms-lbl { font-size: 0.6rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+    .mockup-positions-title {
+        font-size: 0.72rem; font-weight: 700; color: var(--muted);
+        text-transform: uppercase; letter-spacing: 0.08em;
+        margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .mockup-positions-title::before { content: ''; width: 3px; height: 14px; background: var(--purple); border-radius: 2px; }
+    .mockup-pos {
+        display: flex; align-items: center; justify-content: space-between;
+        background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 10px; padding: 12px 16px; margin-bottom: 8px;
+        transition: all 0.3s;
+    }
+    .mockup-pos:hover { border-color: rgba(177,66,255,0.2); background: rgba(177,66,255,0.04); }
+    .pos-ticker { font-family: var(--font-mono); font-weight: 800; font-size: 0.88rem; }
+    .pos-detail { font-size: 0.68rem; color: var(--dim); margin-top: 2px; }
+    .pos-pnl { font-family: var(--font-mono); font-weight: 800; font-size: 0.95rem; }
+    .pos-pnl.green { color: var(--green); }
+    .pos-pnl.red { color: var(--red); }
+    .mockup-footer {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 14px 24px; border-top: 1px solid rgba(255,255,255,0.06);
+        font-size: 0.68rem; color: var(--dim);
+    }
+    .powered-by { display: flex; align-items: center; gap: 6px; }
+    .powered-by .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+
+    /* ── PRICING SECTION ── */
+    .pricing-section {
+        padding: 120px 8vw; position: relative;
+        max-width: 1200px; margin: 0 auto;
+    }
+    .pricing-section::before {
+        content: ''; position: absolute; top: -200px; left: 50%; width: 800px; height: 400px;
+        transform: translateX(-50%);
+        background: radial-gradient(ellipse, rgba(251,146,60,0.08) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .pricing-header { text-align: center; margin-bottom: 20px; position: relative; z-index: 2; }
+    .pricing-header .sub {
+        font-size: 1rem; color: var(--muted); text-transform: uppercase;
+        letter-spacing: 0.15em; font-weight: 500; margin-bottom: 8px;
+    }
+    .pricing-header h2 {
+        font-family: var(--font-display); font-size: 2.8rem; font-weight: 900;
+        letter-spacing: -0.02em;
+    }
+    .pricing-bar {
+        display: flex; justify-content: space-between; align-items: center;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding: 20px 0 16px; margin-bottom: 50px; position: relative; z-index: 2;
+        flex-wrap: wrap; gap: 12px;
+    }
+    .pricing-toggle { display: flex; gap: 16px; }
+    .pricing-toggle span { font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: color 0.3s; }
+    .pricing-toggle span.active { color: #fff; }
+    .pricing-toggle span:not(.active) { color: var(--dim); }
+    .pricing-pills { display: flex; gap: 16px; }
+    .pricing-pill {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 0.78rem; color: var(--muted);
+    }
+    .pricing-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+    .pricing-save { font-size: 0.82rem; color: var(--orange); font-weight: 700; }
+
+    .pricing-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        position: relative; z-index: 2;
+    }
+    .price-card {
+        background: rgba(12,8,24,0.7); backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 20px; padding: 36px 28px;
+        transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+        position: relative; overflow: hidden;
+    }
+    .price-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, var(--card-accent, var(--dim)), transparent);
+        opacity: 0.6;
+    }
+    .price-card:hover {
+        border-color: var(--card-accent, rgba(255,255,255,0.12));
+        transform: translateY(-8px);
+        box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 40px color-mix(in srgb, var(--card-accent, #333) 10%, transparent);
+    }
+    .price-card.featured {
+        border-color: rgba(251,146,60,0.3);
+        box-shadow: 0 8px 40px rgba(251,146,60,0.08);
+    }
+    .price-card.featured::before { background: linear-gradient(90deg, var(--orange), rgba(251,146,60,0.3)); opacity: 1; }
+    .pc-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .pc-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; }
+    .pc-users {
+        font-size: 0.68rem; font-weight: 700; color: var(--muted);
+        background: rgba(255,255,255,0.06); padding: 3px 10px; border-radius: 8px;
+    }
+    .pc-desc { font-size: 0.85rem; color: var(--dim); margin-bottom: 24px; line-height: 1.5; }
+    .pc-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+    .pc-amount { font-family: var(--font-display); font-size: 2.8rem; font-weight: 900; color: #fff; }
+    .pc-original { font-size: 0.9rem; color: var(--dim); text-decoration: line-through; }
+    .pc-period { font-size: 0.88rem; color: var(--muted); }
+    .pc-tags { display: flex; gap: 8px; margin-bottom: 28px; }
+    .pc-tag {
+        font-size: 0.68rem; font-weight: 700; padding: 4px 10px; border-radius: 6px;
+    }
+    .pc-tag.yearly { background: rgba(251,146,60,0.12); color: var(--orange); }
+    .pc-tag.off { background: rgba(251,146,60,0.12); color: var(--orange); }
+    .btn-subscribe {
+        display: block; width: 100%; padding: 14px; border-radius: 12px;
+        font-family: var(--font-sans); font-size: 0.9rem; font-weight: 700;
+        text-align: center; cursor: pointer; transition: all 0.3s;
+        border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04);
+        color: #fff; margin-bottom: 28px; text-decoration: none;
+    }
+    .btn-subscribe:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+    .btn-subscribe.featured {
+        background: linear-gradient(135deg, var(--orange), #e67e22);
+        border: none; color: #000; font-weight: 800;
+        box-shadow: 0 4px 20px rgba(251,146,60,0.3);
+    }
+    .btn-subscribe.featured:hover { box-shadow: 0 8px 30px rgba(251,146,60,0.5); transform: translateY(-2px); }
+    .pc-features h5 { font-size: 0.82rem; font-weight: 700; margin-bottom: 12px; color: #CBD5E1; }
+    .pc-features ul { list-style: none; padding: 0; }
+    .pc-features li {
+        display: flex; align-items: center; gap: 8px;
+        font-size: 0.82rem; color: var(--muted); padding: 5px 0;
+    }
+    .pc-features li .check { color: var(--green); font-weight: 700; font-size: 0.9rem; }
+    .pc-features li .cross { color: #444; font-weight: 700; font-size: 0.9rem; }
+    .pc-features li.disabled { color: #333; }
+
+    /* ── FOOTER ── */
+    .titan-footer {
+        text-align: center; padding: 40px 8vw;
+        border-top: 1px solid rgba(255,255,255,0.04);
+        color: var(--dim); font-size: 0.78rem;
+    }
+
+    /* ── KEYFRAMES ── */
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    .fade-in { animation: fadeIn 0.8s ease; }
+    .fade-up { animation: fadeInUp 0.6s ease both; }
+    .fade-up-d1 { animation: fadeInUp 0.6s 0.1s ease both; }
+    .fade-up-d2 { animation: fadeInUp 0.6s 0.2s ease both; }
+    .fade-up-d3 { animation: fadeInUp 0.6s 0.3s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+        .agent-hero { grid-template-columns: 1fr; padding-top: 120px; }
+        .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+        .agent-info h1 { font-size: 2.4rem; }
+    }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="titan-nav">
+        <div class="titan-nav-inner">
+            <div class="titan-logo">TITAN <span class="titan-logo-ver">v1.0</span></div>
+            <div class="titan-nav-links">
+                <a href="#showcase">Agent</a>
+                <a href="#pricing">Pricing</a>
+                <a href="/landing/index.html">Home</a>
+            </div>
+            <a href="/landing/index.html" class="btn-back">← Back to Drishti</a>
+        </div>
+    </div>
+
+    <!-- ═══════ AGENT SHOWCASE HERO ═══════ -->
+    <section class="agent-hero" id="showcase">
+        <div class="agent-info fade-up">
+            <div class="agent-badge"><span class="dot"></span> AUTONOMOUS ENGINE ACTIVE</div>
+            <h1>Meet <span class="grad">TITAN</span><br>AI Trading Agent</h1>
+            <p class="desc">God-level autonomous trading intelligence. TITAN monitors markets 24/7, executes algorithmic strategies with zero human intervention, and integrates directly with your Zerodha & Groww accounts.</p>
+            <div class="agent-stats">
+                <div class="agent-stat">
+                    <div class="val" style="color: var(--green)">65%</div>
+                    <div class="lbl">Win Rate</div>
+                </div>
+                <div class="agent-stat">
+                    <div class="val" style="color: var(--purple)">27</div>
+                    <div class="lbl">Cycles</div>
+                </div>
+                <div class="agent-stat">
+                    <div class="val" style="color: var(--blue)">7</div>
+                    <div class="lbl">Positions</div>
+                </div>
+                <div class="agent-stat">
+                    <div class="val" style="color: var(--orange)">0</div>
+                    <div class="lbl">CB Level</div>
+                </div>
+            </div>
+            <div class="integrations">
+                <div class="integ-chip">🟢 Zerodha Kite API</div>
+                <div class="integ-chip">🟣 Groww Trading</div>
+                <div class="integ-chip">⚛️ Gemini 3.1 Pro</div>
+            </div>
+        </div>
+
+        <div class="agent-mockup-wrap fade-up-d2">
+            <div class="agent-mockup" id="agent3d">
+                <div class="mockup-header">
+                    <div class="mockup-title">TITAN <span style="font-size:0.7rem; color:var(--muted); font-weight:500; margin-left:6px">v1.0</span></div>
+                    <div class="mockup-status"><span class="dot"></span> ACTIVE</div>
+                </div>
+                <div class="mockup-tabs">
+                    <div class="mockup-tab active">Dashboard</div>
+                    <div class="mockup-tab">Analysis</div>
+                    <div class="mockup-tab">Trades</div>
+                    <div class="mockup-tab">Settings</div>
+                </div>
+                <div class="mockup-body">
+                    <div class="mockup-volatility">⚡ High Volatility</div>
+                    <div class="mockup-grid">
+                        <div class="mockup-card">
+                            <div class="mc-label">Today P&L</div>
+                            <div class="mc-value green">+₹14,052.63</div>
+                        </div>
+                        <div class="mockup-card">
+                            <div class="mc-label">This Week</div>
+                            <div class="mc-value green">+₹14,052.63</div>
+                        </div>
+                        <div class="mockup-card">
+                            <div class="mc-label">Win Rate</div>
+                            <div class="mc-value green">65.0%</div>
+                        </div>
+                        <div class="mockup-card">
+                            <div class="mc-label">Cycles</div>
+                            <div class="mc-value" style="color: var(--purple)">27</div>
+                        </div>
+                    </div>
+                    <div class="mockup-stats-row">
+                        <div class="ms-cell"><div class="ms-num">20</div><div class="ms-lbl">Trades</div></div>
+                        <div class="ms-cell"><div class="ms-num">7</div><div class="ms-lbl">Positions</div></div>
+                        <div class="ms-cell"><div class="ms-num">0</div><div class="ms-lbl">CB Level</div></div>
+                    </div>
+                    <div class="mockup-positions-title">Active Positions</div>
+                    <div class="mockup-pos">
+                        <div><div class="pos-ticker">BHARTIARTL</div><div class="pos-detail">19x @ ₹1645.30 · LONG</div></div>
+                        <div class="pos-pnl green">+₹39.21</div>
+                    </div>
+                    <div class="mockup-pos">
+                        <div><div class="pos-ticker">NESTLEIND</div><div class="pos-detail">14x @ ₹2567.80 · LONG</div></div>
+                        <div class="pos-pnl green">+₹168.74</div>
+                    </div>
+                    <div class="mockup-pos">
+                        <div><div class="pos-ticker">ULTRACEMCO</div><div class="pos-detail">17x @ ₹11230.00 · LONG</div></div>
+                        <div class="pos-pnl red">-₹47.42</div>
+                    </div>
+                    <div class="mockup-pos">
+                        <div><div class="pos-ticker">ADANIENT</div><div class="pos-detail">15x @ ₹3145.70 · LONG</div></div>
+                        <div class="pos-pnl green">+₹127.51</div>
+                    </div>
+                </div>
+                <div class="mockup-footer">
+                    <div class="powered-by"><span class="dot"></span> Powered by Gemini 3.1 Pro</div>
+                    <div>DEMO MODE</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ PRICING SECTION ═══════ -->
+    <section class="pricing-section" id="pricing">
+        <div class="pricing-header fade-up">
+            <div class="sub">From Zero to Full Autonomy</div>
+            <h2>We've Got a Plan<br>For <span style="color: var(--orange)">Every Trader</span></h2>
+        </div>
+        <div class="pricing-bar fade-up-d1">
+            <div class="pricing-toggle">
+                <span class="active">MONTHLY</span>
+                <span>ANNUALLY</span>
+            </div>
+            <div class="pricing-pills">
+                <div class="pricing-pill"><span class="dot"></span> 14-Day Free Trial</div>
+                <div class="pricing-pill"><span class="dot"></span> Cancel Anytime</div>
+            </div>
+            <div class="pricing-save">SAVE UPTO 30%</div>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- STARTER -->
+            <div class="price-card fade-up-d1" style="--card-accent: #64748B;">
+                <div class="pc-head">
+                    <div class="pc-name">Starter</div>
+                    <div class="pc-users">2K+</div>
+                </div>
+                <div class="pc-desc">For individual traders exploring automated strategies with basic AI assistance.</div>
+                <div class="pc-price">
+                    <div class="pc-amount">₹999</div>
+                    <div class="pc-original">₹1,499</div>
+                </div>
+                <div class="pc-period">/month</div>
+                <div class="pc-tags">
+                    <span class="pc-tag yearly">Billed Yearly</span>
+                    <span class="pc-tag off">33% off</span>
+                </div>
+                <a href="#" class="btn-subscribe">Subscribe</a>
+                <div class="pc-features">
+                    <h5>What's included</h5>
+                    <ul>
+                        <li><span class="check">✓</span> 5 Trades / Day</li>
+                        <li><span class="check">✓</span> Basic AI Signals</li>
+                        <li><span class="check">✓</span> Single Exchange (Zerodha OR Groww)</li>
+                        <li class="disabled"><span class="cross">✕</span> Multi-Stock Scanning</li>
+                        <li class="disabled"><span class="cross">✕</span> Risk DNA Engine</li>
+                        <li class="disabled"><span class="cross">✕</span> Dedicated Support</li>
+                        <li class="disabled"><span class="cross">✕</span> Custom Strategy Builder</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PROFESSIONAL -->
+            <div class="price-card featured fade-up-d2" style="--card-accent: #fb923c;">
+                <div class="pc-head">
+                    <div class="pc-name">Professional</div>
+                    <div class="pc-users">12K+</div>
+                </div>
+                <div class="pc-desc">For serious traders who need full autonomous execution and multi-stock intelligence.</div>
+                <div class="pc-price">
+                    <div class="pc-amount">₹2,999</div>
+                    <div class="pc-original">₹4,499</div>
+                </div>
+                <div class="pc-period">/month</div>
+                <div class="pc-tags">
+                    <span class="pc-tag yearly">Billed Yearly</span>
+                    <span class="pc-tag off">33% off</span>
+                </div>
+                <a href="#" class="btn-subscribe featured">Subscribe</a>
+                <div class="pc-features">
+                    <h5>What's included</h5>
+                    <ul>
+                        <li><span class="check">✓</span> Unlimited Trades / Day</li>
+                        <li><span class="check">✓</span> Full NEXUS AI Council</li>
+                        <li><span class="check">✓</span> Zerodha + Groww Integration</li>
+                        <li><span class="check">✓</span> 48+ NSE Stock Scanning</li>
+                        <li><span class="check">✓</span> Risk DNA & Monte Carlo</li>
+                        <li class="disabled"><span class="cross">✕</span> Priority Telegram Support</li>
+                        <li class="disabled"><span class="cross">✕</span> Custom Strategy Builder</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ENTERPRISE -->
+            <div class="price-card fade-up-d3" style="--card-accent: #C084FC;">
+                <div class="pc-head">
+                    <div class="pc-name">Enterprise</div>
+                    <div class="pc-users">1K+</div>
+                </div>
+                <div class="pc-desc">For institutions and HNIs requiring white-glove AI trading with quantum-grade security.</div>
+                <div class="pc-price">
+                    <div class="pc-amount">₹7,999</div>
+                    <div class="pc-original">₹11,999</div>
+                </div>
+                <div class="pc-period">/month</div>
+                <div class="pc-tags">
+                    <span class="pc-tag yearly">Billed Yearly</span>
+                    <span class="pc-tag off">33% off</span>
+                </div>
+                <a href="#" class="btn-subscribe">Subscribe</a>
+                <div class="pc-features">
+                    <h5>What's included</h5>
+                    <ul>
+                        <li><span class="check">✓</span> Unlimited Trades / Day</li>
+                        <li><span class="check">✓</span> Full NEXUS AI Council</li>
+                        <li><span class="check">✓</span> All Exchange APIs</li>
+                        <li><span class="check">✓</span> 200+ Stock Universe</li>
+                        <li><span class="check">✓</span> Risk DNA & Monte Carlo</li>
+                        <li><span class="check">✓</span> 24/7 Priority Support</li>
+                        <li><span class="check">✓</span> Custom Strategy Builder</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="titan-footer">
+        <p>© 2026 TITAN AI · A DRISHTI NEXUS Product · <a href="/landing/index.html" style="color:var(--purple)">Back to Drishti AI</a></p>
+    </div>
+
+    <script>
+    // 3D tilt on mouse parallax
+    const mockup = document.getElementById('agent3d');
+    if (mockup) {
+        document.addEventListener('mousemove', (e) => {
+            const rect = mockup.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) / rect.width;
+            const dy = (e.clientY - cy) / rect.height;
+            mockup.style.transform = `rotateY(${dx * 8}deg) rotateX(${-dy * 5}deg)`;
+        });
+    }
+
+    // Pricing toggle
+    document.querySelectorAll('.pricing-toggle span').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.pricing-toggle span').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+    </script>
+</body>
+</html>

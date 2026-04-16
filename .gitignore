@@ -1,0 +1,38 @@
+# ═══ Dependencies & Build ═══
+node_modules/
+dist/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.eggs/
+build/
+*.whl
+
+# ═══ Environment & Secrets ═══
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# ═══ IDE ═══
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ═══ OS ═══
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ═══ Logs ═══
+logs/
+*.log
+npm-debug.log*
+
+# ═══ Misc ═══
+.gemini/

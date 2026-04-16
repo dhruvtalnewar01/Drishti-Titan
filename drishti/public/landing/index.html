@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drishti | AI Research Layer</title>
+    <meta name="description" content="The first adversarially-hardened AI research layer for institutional-grade market analysis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- GLOBAL 3D PARTICLES -->
+    <canvas id="particles-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:99; mix-blend-mode: screen; opacity:0; transition: opacity 0.5s;"></canvas>
+
+    <!-- FLOATING CYLINDER NAVBAR -->
+    <div class="nav-container">
+        <nav class="navbar dark-nav">
+            <div class="logo">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <defs>
+                        <linearGradient id="neonGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#C084FC" />
+                            <stop offset="100%" stop-color="#B142FF" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M12 2L2 22H22L12 2Z" stroke="url(#neonGlow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 10L7 20H17L12 10Z" stroke="url(#neonGlow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="logo-text">DRISHTI AI</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="/?app=1" class="btn-glow pulse-click">Go to Dashboard &rarr;</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="wrapper">
+        <!-- ═══════ HERO 3D SCROLL ═══════ -->
+        <section class="sec-hero">
+            <div class="hero-content-static">
+                <h1 class="hero-title">Stop Chasing Momentum.<br><span class="gradient-text-hero">Start Synthesizing Truth.</span></h1>
+                <p class="hero-subtitle">The first adversarially-hardened AI research layer for institutional-grade market analysis.</p>
+                <a href="/landing/titan.html" class="btn-glow large mt-4 pulse-click glow-shadow">Try TITAN Agent &rarr;</a>
+            </div>
+
+            <div class="canvas-container" id="hero-canvas-container">
+                <div class="scroll-fade-vignette"></div>
+                <canvas id="hero-canvas"></canvas>
+                
+                <div class="scroll-text-track">
+                    <div class="infographic-item item-right">
+                        <div class="info-number">01</div>
+                        <h3>7 Agents vs 1 Model</h3>
+                        <p>One model gives you one implicit bias. Our architecture forces perspective diversity. FREUD flags behavioral overconfidence even when technicals look bullish.</p>
+                    </div>
+                    <div class="infographic-item item-left">
+                        <div class="info-number">02</div>
+                        <h3>Research, Not Just Execution</h3>
+                        <p>Brokers give you tools to execute. DRISHTI generates the strategy, defends it adversarially, and sizes the position. We compete with the research desk.</p>
+                    </div>
+                    <div class="infographic-item item-right">
+                        <div class="info-number">03</div>
+                        <h3>Liability & Consent</h3>
+                        <p>Every signal ships with a 9-layer audit trail. This is informed consent by design — analysis and recommendation, not blind fiduciary management.</p>
+                    </div>
+                    <div class="infographic-item item-left">
+                        <div class="info-number">04</div>
+                        <h3>Data Resilience Fabric</h3>
+                        <p>3-of-5 consensus model across publicly available APIs (NSE, SEBI, RBI). Zero dependency on expensive vendors, with auto-fallback on source failure.</p>
+                    </div>
+                    <div class="infographic-item item-right">
+                        <div class="info-number">05</div>
+                        <h3>Post-Quantum Crypto</h3>
+                        <p>Adversaries harvest encrypted traffic today to decrypt tomorrow. We implement NIST FIPS 204 natively for quantum-resilient financial signal security.</p>
+                    </div>
+                    <div class="infographic-item item-left">
+                        <div class="info-number">06</div>
+                        <h3>SENTINEL Defense</h3>
+                        <p>Pre-scans every data payload for statistical anomalies, replay attacks, and adversarial prompt injections — institutional ML defense applied to trading.</p>
+                    </div>
+                    <div class="infographic-item item-right">
+                        <div class="info-number">07</div>
+                        <h3>Built for Cloud Scale</h3>
+                        <p>Serverless functions, Web Workers for off-thread Monte Carlo, and a broker-agnostic MCP layer. Scaling to 100K+ users is a cloud spend issue, not rearchitecture.</p>
+                    </div>
+                    <div class="infographic-item item-left">
+                        <div class="info-number">08</div>
+                        <h3>Growth Strategy</h3>
+                        <p>Content-first distribution via 10M+ active traders on YouTube. CAC under ₹300 via affiliate. At ₹499 MRR, payback period under one month.</p>
+                    </div>
+                    <div class="infographic-item item-right">
+                        <div class="info-number">09</div>
+                        <h3>The Big Broker Moat</h3>
+                        <p>Large brokers prioritize order routing. An adversarially-hardened AI research layer requires an AI-first culture. They'll acquire this, not build it.</p>
+                    </div>
+                    <div class="infographic-item item-left">
+                        <div class="info-number">10</div>
+                        <h3>Green AI Tracking</h3>
+                        <p>Every LLM inference has a carbon cost. We log Scope 3 AI emissions, positioning institutional clients ahead of upcoming ESG compliance frameworks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ FEATURES BENTO GRID (White) ═══════ -->
+        <section class="sec-features light-theme" id="features">
+            <div class="features-header">
+                <span class="badge-pill">Main features</span>
+                <h2 class="title-bright">Power Up Your <span class="gradient-text-purple">Alpha</span></h2>
+                <p>Six AI-driven components that qualify signals, mitigate risk, and scale your trading edge.</p>
+            </div>
+            
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <div class="bento-visual">
+                        <div class="abstract-nodes">
+                            <span class="line-x"></span><span class="line-y"></span><div class="node pulse"></div><div class="node ai">🧠</div>
+                        </div>
+                    </div>
+                    <div class="bento-content">
+                        <h3>Smart Agent Routing</h3>
+                        <p>Signals route through 7 specialized agents in real-time with full structural context — top algorithms handle the deepest research.</p>
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-visual">
+                        <div class="abstract-nodes horizontal">
+                            <div class="node green">✔</div><div class="line-fill"></div><div class="node purple">✔</div>
+                        </div>
+                    </div>
+                    <div class="bento-content">
+                        <h3>9-Layer Audit Trail</h3>
+                        <p>Every signal ships with complete transparent reasoning — a full adversarial review chain from ingestion to recommendation.</p>
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-visual">
+                        <div class="large-icon-wrapper"><span class="large-bolt">⚡</span></div>
+                    </div>
+                    <div class="bento-content">
+                        <h3>Speed to Trade</h3>
+                        <p>Identify new technical breakouts within 60 seconds and prioritize inventory automatically — natively on the cloud edge.</p>
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-visual">
+                        <div class="fake-ui-box">
+                            🛡️ Signal verified<br><b>Confidence: 94%</b>
+                        </div>
+                    </div>
+                    <div class="bento-content">
+                        <h3>Adversarial Defense</h3>
+                        <p>SENTINEL blocks poison data instantly when anomalies are detected — protecting capital automatically and independently.</p>
+                    </div>
+                </div>
+                <div class="bento-card col-span-2">
+                    <div class="bento-visual full-width">
+                        <svg class="fake-chart" viewBox="0 0 200 60"><path d="M0,50 Q40,10 80,40 T200,20 L200,60 L0,60 Z" fill="rgba(177, 66, 255, 0.06)"/><path d="M0,50 Q40,10 80,40 T200,20" fill="none" stroke="#B142FF" stroke-width="2.5"/></svg>
+                    </div>
+                    <div class="bento-content">
+                        <h3>Carbon Analytics</h3>
+                        <p>Track compute footprints, agent invocations per segment, and pipeline efficiency — full ESG compliance for institutional mandates.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ VERTICAL CHAIN SCROLL ═══════ -->
+        <section class="sec-chain dark-theme" id="architecture">
+            <div class="hero-content-static chain-intro">
+                <h2 class="title-dark">Your Path from <br><span class="gradient-text">Data to Live Strategies</span></h2>
+                <p class="hero-subtitle">Convert filings from NSE, blocks, or transcripts into qualified, defended, and sized trading positions.</p>
+            </div>
+            
+            <div class="canvas-container" id="chain-canvas-container">
+                <div class="scroll-fade-vignette"></div>
+                <canvas id="chain-canvas"></canvas>
+                
+                <div class="scroll-text-track">
+                    <div class="infographic-item item-right chain-info">
+                        <div class="info-number">01</div>
+                        <h3 class="gradient-text">Connect Your Tools</h3>
+                        <p>Connect Drishti AI to your terminal. Use our Web SDK for fastest setup, or integrate via REST API seamlessly.</p>
+                    </div>
+                    <div class="infographic-item item-left chain-info">
+                        <div class="info-number">02</div>
+                        <h3 class="gradient-text">Data Validation</h3>
+                        <p>Immediate sanitization of NSE and global market arrays via 3-of-5 consensus node tracking.</p>
+                    </div>
+                    <div class="infographic-item item-right chain-info">
+                        <div class="info-number">03</div>
+                        <h3 class="gradient-text">Agent Synthesis</h3>
+                        <p>Our Council of 7 specialized AI agents debates the data, removing recency bias and ensuring structural integrity.</p>
+                    </div>
+                    <div class="infographic-item item-left chain-info">
+                        <div class="info-number">04</div>
+                        <h3 class="gradient-text">Live Execution</h3>
+                        <p>Automated paper-trading endpoints ready. Export the unified logic payload directly into your algorithmic systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ═══════ READY CTA (Whisk Image) ═══════ -->
+        <section class="sec-setup-cta dark-theme" id="get-started" style="padding: 100px 8vw;">
+            <div class="cta-grid">
+                <div class="cta-visual" style="background-image: url('Whisk.jpeg'); background-size: cover; background-position: left center;">
+                    <div class="visual-mask"></div>
+                </div>
+                <div class="cta-content">
+                    <h2 class="title-dark" style="font-size: 3.2rem; line-height: 1.1; margin-bottom: 30px;">Ready to setup your personalized Real-time trading Agent?</h2>
+                    <a href="/landing/titan.html" class="btn-glow large mt-4 pulse-click glow-shadow" style="padding: 14px 28px; font-size: 1.1rem;">Access the Agent <span style="font-size: 1.2em; margin-left:6px;">&rarr;</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ 3D HORIZONTAL CAROUSEL ═══════ -->
+        <section class="sec-carousel dark-theme" id="why-choose">
+            <div class="carousel-header">
+                <div>
+                    <span class="badge-pill">Our Benefits</span>
+                    <h2 class="title-dark">Why Choose <br><span class="gradient-text">Drishti AI?</span></h2>
+                </div>
+                <div class="carousel-controls">
+                    <button id="carousel-prev">&larr;</button>
+                    <button id="carousel-next">&rarr;</button>
+                </div>
+            </div>
+            
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <div class="carousel-card">
+                        <div class="card-text">
+                            <h3>Alpha-Grade Analytics</h3>
+                            <p>Track cost per qualified signal, pipeline generated, and ROI. See what converts, which data sources drive maximum alpha, and where to double down.</p>
+                            <span class="impact">Impact: Outcomes over activity.</span>
+                        </div>
+                        <div class="card-visual">
+                            <div class="hologram-cube"></div>
+                        </div>
+                    </div>
+                    <!-- Duplicate standard for now, script will manage dynamic positions -->
+                    <div class="carousel-card active">
+                        <div class="card-text">
+                            <h3>Pre-Market Deep Scans</h3>
+                            <p>Run multi-touch outbound data gathering with smart routing. Then use the exact same AI engines to handle live inbound market ticks with identical robust control.</p>
+                            <span class="impact">Impact: One system for every motion.</span>
+                        </div>
+                        <div class="card-visual">
+                            <div class="hologram-cube secondary"></div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="card-text">
+                            <h3>Live Strategy Transfers</h3>
+                            <p>When a signal qualifies, Drishti AI's skills-based routing connects it directly to your algorithmic broker execution pipeline. Full context, zero human latency.</p>
+                            <span class="impact">Impact: Less friction, more alpha.</span>
+                        </div>
+                        <div class="card-visual">
+                            <div class="hologram-cube tertiary"></div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="card-text">
+                            <h3>Adversarial Resistance</h3>
+                            <p>Continuous synthetic replay testing against historical black swan events. Ensures your strategy holds even when correlation breaks down unexpectedly.</p>
+                            <span class="impact">Impact: Defense wins championships.</span>
+                        </div>
+                        <div class="card-visual">
+                            <div class="hologram-cube primary"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ SUBSCRIPTION DASHBOARD BANNER ═══════ -->
+        <section class="sec-subscription dark-theme">
+            <div class="pricing-grid">
+                <!-- Tier 1 -->
+                <div class="pricing-card">
+                    <div class="tier-name">Analyst Node</div>
+                    <div class="tier-price">Free <span class="interval">/ forever</span></div>
+                    <ul class="tier-features">
+                        <li>Basic NSE ingestion</li>
+                        <li>Rule-based screening</li>
+                        <li>EOD data resolution</li>
+                        <li>Web UI access</li>
+                    </ul>
+                    <a href="/?app=1" class="btn-ghost">Start Exploring</a>
+                </div>
+                <!-- Tier 2 -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Advanced</div>
+                    <div class="tier-name">Council Matrix</div>
+                    <div class="tier-price">$499 <span class="interval">/ month</span></div>
+                    <ul class="tier-features">
+                        <li>7-Agent Consensus</li>
+                        <li>LIVE tick ingestion</li>
+                        <li>Orthogonal Defense Layer</li>
+                        <li>Real-time JSON Webhooks</li>
+                    </ul>
+                    <a href="/?app=1" class="btn-glow pulse-click">Deploy Council &rarr;</a>
+                </div>
+                <!-- Tier 3 -->
+                <div class="pricing-card">
+                    <div class="tier-name">Enterprise Node</div>
+                    <div class="tier-price">Custom <span class="interval">/ setup</span></div>
+                    <ul class="tier-features">
+                        <li>On-prem Docker deploys</li>
+                        <li>Private LLM fine-tuning</li>
+                        <li>Zero-latency colocation</li>
+                        <li>Full algorithmic broker API</li>
+                    </ul>
+                    <a href="/?app=1" class="btn-ghost">Contact Sales</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ INTERACTIVE FAQ ═══════ -->
+        <section class="sec-faq light-theme" id="faq">
+            <div class="faq-badge-wrapper"><span class="badge-pill">FAQ</span></div>
+            <h2 class="title-bright text-center">Check Out the Answers <br><span class="gradient-text-purple">to Common Questions</span></h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>What is the computational latency overhead for the 7-agent consensus resolution?</h4>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Drishti operates completely out-of-band utilizing distributed edge GPU workers. Analysis is pre-computed on streaming ticks. By the time a structural breakout occurs, the multi-agent consensus has already pre-calculated sizing matrices, logging a definitive latency overhead of &lt;110ms.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>How does the Orthogonal Defense layer mitigate adversarial hallucinations?</h4>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our SENTINEL module employs smaller, deterministic BERT-style classifiers trained exclusively on adversarial and anomalous payloads. It intercepts and sterilizes unstructured market sentiment before it ever reaches the primary generative agents, effectively neutralizing zero-day prompt injections.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Can the orchestration matrix pipeline adapt to black swan volatility clusters?</h4>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes. The Risk DNA agent runs continuous localized Monte Carlo simulations based on the decaying momentum vector. During detected structural market breaks, it automatically constricts the maximum allowable drawdown limits for the execution API without requiring human override.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>What cryptographic safeguards isolate execution node permissions?</h4>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All compiled payloads generated by the Orchestrator are cryptographically signed and transmitted via secure, one-way WebSockets to isolated execution sandbox environments. Direct API endpoint calls cannot originate from the generative instances.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>How does the multi-stage Orchestrator handle severe market divergence?</h4>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>During extreme correlation breakdowns across multi-asset vectors, the Risk DNA subsystem forces a hard parameter truncation on sizing logic. Pre-trained on a decade of institutional black-swan data, the models override standard technical confidence bands to heavily penalize over-leveraged long biases without human intervention.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ ABOUT SECTION ═══════ -->
+        <section class="sec-about dark-theme" id="about" style="padding: 120px 8vw; position: relative; overflow: hidden;">
+            <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(177,66,255,0.06) 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(0,229,160,0.04) 0%, transparent 60%); pointer-events: none;"></div>
+            <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto;">
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <span class="badge-pill">About Us</span>
+                    <h2 class="title-dark" style="margin-top: 16px;">The Minds Behind <br><span class="gradient-text">DRISHTI NEXUS</span></h2>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                    <div style="background: rgba(12,8,24,0.6); backdrop-filter: blur(24px); border: 1px solid rgba(177,66,255,0.12); border-radius: 24px; padding: 48px; box-shadow: 0 20px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);">
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                            <div style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #B142FF, #00E5A0); display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 0 30px rgba(177,66,255,0.3);">🧠</div>
+                            <div>
+                                <h3 style="font-size: 1.4rem; margin: 0; color: #fff;">Our Mission</h3>
+                                <p style="font-size: 0.85rem; color: #94A3B8; margin: 0;">Democratizing institutional-grade intelligence</p>
+                            </div>
+                        </div>
+                        <p style="font-size: 1rem; line-height: 1.8; color: #CBD5E1;">DRISHTI NEXUS was born from a single conviction: retail traders deserve the same adversarially-hardened AI research infrastructure that powers billion-dollar hedge funds. Built by a team of AI engineers, quantitative researchers, and former institutional traders from IIT, Amity University Mumbai, and leading fintech companies.</p>
+                        <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
+                            <span style="background: rgba(177,66,255,0.1); border: 1px solid rgba(177,66,255,0.2); color: #C084FC; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">7 AI Agents</span>
+                            <span style="background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2); color: #00E5A0; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">48+ NSE Stocks</span>
+                            <span style="background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2); color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Quantum Secured</span>
+                        </div>
+                    </div>
+                    <div style="display: grid; gap: 16px;">
+                        <div style="background: rgba(12,8,24,0.5); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 28px; transition: all 0.4s ease;" onmouseenter="this.style.borderColor='rgba(177,66,255,0.3)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(177,66,255,0.1)';" onmouseleave="this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div style="font-size: 2rem; margin-bottom: 8px;">🏛️</div>
+                            <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 6px;">Multi-Agent Architecture</h4>
+                            <p style="color: #94A3B8; font-size: 0.88rem; line-height: 1.6;">7 specialized AI agents debate every signal — ORACLE, SHERLOCK, FREUD, TESLA, BUFFETT, GUARDIAN, and SENTINEL — delivering perspective diversity that single-model systems cannot achieve.</p>
+                        </div>
+                        <div style="background: rgba(12,8,24,0.5); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 28px; transition: all 0.4s ease;" onmouseenter="this.style.borderColor='rgba(0,229,160,0.3)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(0,229,160,0.1)';" onmouseleave="this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div style="font-size: 2rem; margin-bottom: 8px;">🛡️</div>
+                            <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 6px;">Adversarial Defense</h4>
+                            <p style="color: #94A3B8; font-size: 0.88rem; line-height: 1.6;">SENTINEL pre-scans every data payload for statistical anomalies, replay attacks, and prompt injections. Your capital is protected before you even see the signal.</p>
+                        </div>
+                        <div style="background: rgba(12,8,24,0.5); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 28px; transition: all 0.4s ease;" onmouseenter="this.style.borderColor='rgba(56,189,248,0.3)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(56,189,248,0.1)';" onmouseleave="this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div style="font-size: 2rem; margin-bottom: 8px;">⚛️</div>
+                            <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 6px;">Post-Quantum Cryptography</h4>
+                            <p style="color: #94A3B8; font-size: 0.88rem; line-height: 1.6;">Every signal is cryptographically signed using CRYSTALS-Dilithium (NIST FIPS 204), ensuring quantum-resilient authentication of trading intelligence.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ CONTACT SECTION ═══════ -->
+        <section class="sec-contact dark-theme" id="contact" style="padding: 120px 8vw; position: relative; overflow: hidden;">
+            <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 80%, rgba(177,66,255,0.08) 0%, transparent 50%); pointer-events: none;"></div>
+            <div style="position: relative; z-index: 2; max-width: 900px; margin: 0 auto; text-align: center;">
+                <span class="badge-pill">Get In Touch</span>
+                <h2 class="title-dark" style="margin-top: 16px; margin-bottom: 20px;">Connect With <br><span class="gradient-text">Our Team</span></h2>
+                <p style="color: #94A3B8; font-size: 1.1rem; line-height: 1.7; max-width: 600px; margin: 0 auto 50px;">Whether you're an institutional investor, a fintech startup, or an individual trader — we'd love to hear from you.</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 50px;">
+                    <div style="background: rgba(12,8,24,0.6); backdrop-filter: blur(24px); border: 1px solid rgba(177,66,255,0.12); border-radius: 20px; padding: 40px 24px; transition: all 0.4s ease; cursor: pointer;" onmouseenter="this.style.borderColor='rgba(177,66,255,0.4)'; this.style.transform='translateY(-6px)'; this.style.boxShadow='0 16px 60px rgba(177,66,255,0.15)';" onmouseleave="this.style.borderColor='rgba(177,66,255,0.12)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, rgba(177,66,255,0.15), rgba(177,66,255,0.05)); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; border: 1px solid rgba(177,66,255,0.2); box-shadow: 0 0 20px rgba(177,66,255,0.15);">📞</div>
+                        <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">Call Us</h4>
+                        <p style="color: #C084FC; font-size: 1.05rem; font-weight: 600;">9860486657</p>
+                    </div>
+                    <div style="background: rgba(12,8,24,0.6); backdrop-filter: blur(24px); border: 1px solid rgba(0,229,160,0.12); border-radius: 20px; padding: 40px 24px; transition: all 0.4s ease; cursor: pointer;" onmouseenter="this.style.borderColor='rgba(0,229,160,0.4)'; this.style.transform='translateY(-6px)'; this.style.boxShadow='0 16px 60px rgba(0,229,160,0.15)';" onmouseleave="this.style.borderColor='rgba(0,229,160,0.12)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, rgba(0,229,160,0.15), rgba(0,229,160,0.05)); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; border: 1px solid rgba(0,229,160,0.2); box-shadow: 0 0 20px rgba(0,229,160,0.15);">✉️</div>
+                        <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">Email</h4>
+                        <p style="color: #00E5A0; font-size: 1.05rem; font-weight: 600;">dtalnewar@gmail.com</p>
+                    </div>
+                    <div style="background: rgba(12,8,24,0.6); backdrop-filter: blur(24px); border: 1px solid rgba(56,189,248,0.12); border-radius: 20px; padding: 40px 24px; transition: all 0.4s ease; cursor: pointer;" onmouseenter="this.style.borderColor='rgba(56,189,248,0.4)'; this.style.transform='translateY(-6px)'; this.style.boxShadow='0 16px 60px rgba(56,189,248,0.15)';" onmouseleave="this.style.borderColor='rgba(56,189,248,0.12)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(56,189,248,0.05)); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; border: 1px solid rgba(56,189,248,0.2); box-shadow: 0 0 20px rgba(56,189,248,0.15);">📍</div>
+                        <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">Location</h4>
+                        <p style="color: #38bdf8; font-size: 1.05rem; font-weight: 600;">Mumbai, MH, India</p>
+                    </div>
+                </div>
+                <p style="color: #3d5272; font-size: 0.85rem;">Amity University Mumbai · ET Markets GenAI Hackathon 2026 · NIRMAN Cohort</p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="hyper-footer dark-theme">
+            <div class="footer-glow-arc"></div>
+            <div class="footer-content-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L2 22H22L12 2Z" stroke="url(#neonGlow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 10L7 20H17L12 10Z" stroke="url(#neonGlow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="logo-text">DRISHTI AI</span>
+                    </div>
+                    <div class="social-icons">
+                        <span class="icon-placeholder">in</span>
+                        <span class="icon-placeholder">f</span>
+                        <span class="icon-placeholder">X</span>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Partner Terms</a>
+                    <a href="#">Service Level (SLA)</a>
+                    <a href="#">Data Processing (DPA)</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">About Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Information</h4>
+                    <p style="color: #fff; font-size: 1rem;">&#9742; 9860486657</p>
+                    <p style="color: #fff; font-size: 1rem;">&#9993; dtalnewar@gmail.com</p>
+                    <p>Mumbai, MH, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Drishti AI Corp. All rights reserved.</p>
+                <p>Created exclusively for ET Hackathon</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
